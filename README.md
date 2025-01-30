@@ -1,11 +1,10 @@
 # Proyek Analisis Data: E-Commerce Public Dataset
 
-# Datasets 
+## Datasets 
 [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
-## 1. 📂 Structure Files
+##  📂 Structure Files
 ```
-.
 📦https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
  ┣ 📂dashboard
  ┃ ┣ 📜dataset-cover.png
@@ -39,3 +38,4 @@ cd dashboard
 streamlit run dashboard.py
 ```
 ### Access The Dashboard Link Below
+https://e-commerce-public-datasets-analysis.streamlit.app/
