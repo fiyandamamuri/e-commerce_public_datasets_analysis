@@ -10,7 +10,7 @@ st.set_page_config(layout="wide", page_title="Business Insights Dashboard")
 # Title and Description
 st.title("📊 Business Insights Dashboard | Brazilian E-Commerce Public Dataset by Olist")
 st.markdown("This dashboard presents visualizations of key business insights based on transactional data.")
-st.image("dataset-cover.png", use_container_width=True)  
+st.image("dashboard/dataset-cover.png", use_container_width=True)  
 
 # Load dataset
 df = pd.read_csv("datasets_cleaned.csv")
