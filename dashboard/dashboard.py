@@ -13,7 +13,7 @@ st.markdown("This dashboard presents visualizations of key business insights bas
 st.image("dashboard/dataset-cover.png", use_container_width=True)  
 
 # Load dataset
-df = pd.read_csv("datasets_cleaned.csv")
+df = pd.read_csv("dashboard/datasets_cleaned.csv")
 
 # Ensure timestamps are in datetime format
 df['order_purchase_timestamp'] = pd.to_datetime(df['order_purchase_timestamp'])
