@@ -34,8 +34,7 @@ pip install -r requirements.txt
 ```
 ### Cara Menjalankan streamlit App
 ```
-cd dashboard
-streamlit run dashboard.py
+streamlit run dashboard/dashboard.py
 ```
 ### Access The Dashboard Link Below
 https://e-commerce-public-datasets-analysis.streamlit.app/

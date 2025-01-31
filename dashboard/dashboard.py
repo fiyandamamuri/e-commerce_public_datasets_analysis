@@ -10,10 +10,10 @@ st.set_page_config(layout="wide", page_title="Business Insights Dashboard")
 # Title and Description
 st.title("📊 Business Insights Dashboard | Brazilian E-Commerce Public Dataset by Olist")
 st.markdown("This dashboard presents visualizations of key business insights based on transactional data.")
-st.image("dashboard/dataset-cover.png", use_container_width=True)  
+st.image("dataset-cover.png", use_container_width=True) 
 
 # Load dataset
-df = pd.read_csv("dashboard/datasets_cleaned.csv")
+df = pd.read_csv("datasets_cleaned.csv")
 
 # Ensure timestamps are in datetime format
 df['order_purchase_timestamp'] = pd.to_datetime(df['order_purchase_timestamp'])
@@ -31,15 +31,38 @@ with st.sidebar:
     **GitHub:** [Profil GitHub](https://github.com/fiyandamamuri)  
     """)
 
-# Hitung KPI
-total_orders = df["order_id"].nunique()
-total_revenue = df["payment_value"].sum()
-avg_order_value = total_revenue / total_orders
-total_customers = df["customer_unique_id"].nunique()
-on_time_deliveries = df[df["order_delivered_customer_date"] <= df["order_estimated_delivery_date"]].shape[0]
-on_time_delivery_rate = (on_time_deliveries / total_orders) * 100
-best_selling_category = df["product_category_name_english"].value_counts().idxmax()
+ # Filter Options
+    st.subheader("Filters")
+    
+    # Filter berdasarkan Tanggal
+    start_date = st.date_input("Start Date", df['order_purchase_timestamp'].min())
+    end_date = st.date_input("End Date", df['order_purchase_timestamp'].max())
+    
+    df_filtered = df[(df['order_purchase_timestamp'] >= pd.to_datetime(start_date)) & 
+                     (df['order_purchase_timestamp'] <= pd.to_datetime(end_date))]
+    
+    # Filter berdasarkan Kategori Produk
+    product_categories = df_filtered['product_category_name_english'].unique()
+    selected_category = st.selectbox("Select Product Category", options=["All"] + list(product_categories))
+    if selected_category != "All":
+        df_filtered = df_filtered[df_filtered['product_category_name_english'] == selected_category]
 
+    # Filter berdasarkan State
+    states = df_filtered['customer_state'].unique()
+    selected_state = st.selectbox("Select State", options=["All"] + list(states))
+    if selected_state != "All":
+        df_filtered = df_filtered[df_filtered['customer_state'] == selected_state]
+
+# Hitung KPI berdasarkan data yang sudah difilter
+total_orders = df_filtered["order_id"].nunique()
+total_revenue = df_filtered["payment_value"].sum()
+avg_order_value = total_revenue / total_orders
+total_customers = df_filtered["customer_unique_id"].nunique()
+on_time_deliveries = df_filtered[df_filtered["order_delivered_customer_date"] <= df_filtered["order_estimated_delivery_date"]].shape[0]
+on_time_delivery_rate = (on_time_deliveries / total_orders) * 100
+best_selling_category = df_filtered["product_category_name_english"].value_counts().idxmax()
+
+# Update metrics
 st.markdown("<hr>", unsafe_allow_html=True)
 col1, col2, col3 = st.columns(3)
 
@@ -60,27 +83,26 @@ with col4:
 with col5:
     st.metric(label="On-Time Delivery Rate", value=f"{on_time_delivery_rate:.2f}%")
 
-
-
-
 st.markdown("<hr>", unsafe_allow_html=True)
-# Top 5 Cities with Most Customers
+
+
+
+
+# Top 5 Cities with Most Customers (Filtered)
 top_cities = (
-    df.groupby("customer_city")["customer_unique_id"]
+    df_filtered.groupby("customer_city")["customer_unique_id"]
     .nunique()
     .sort_values(ascending=False)
     .reset_index()
     .rename(columns={"customer_unique_id": "unique_customers"})
-    .head(5)  # Mengambil 5 kota teratas
+    .head(5)
 )
 
 st.subheader("Top 5 Cities with Most Customers")
 
-# Membuat visualisasi
 fig1, ax1 = plt.subplots(figsize=(10, 5))
 bars = ax1.barh(top_cities["customer_city"], top_cities["unique_customers"], color='teal')
 
-# Memberi judul dan label sumbu
 ax1.set_title("Top 5 Cities with Most Customers")
 ax1.set_xlabel("Number of Customers")
 ax1.set_ylabel("City")
@@ -119,7 +141,7 @@ st.markdown("<hr>", unsafe_allow_html=True)
 
 
 # Payment Type Distribution
-payment_type_counts = df['payment_type'].value_counts()
+payment_type_counts = df_filtered['payment_type'].value_counts()
 st.subheader("Payment Type Distribution")
 fig2, ax2 = plt.subplots(figsize=(10, 5))
 bars = ax2.bar(payment_type_counts.index, payment_type_counts.values, color=plt.cm.viridis(range(len(payment_type_counts))))
@@ -158,7 +180,7 @@ st.markdown("<hr>", unsafe_allow_html=True)
 
 # Trend of Orders per Month
 orders_by_month = (
-    df['order_purchase_timestamp']
+    df_filtered['order_purchase_timestamp']
     .dt.to_period('M')
     .value_counts()
     .sort_index()
@@ -204,7 +226,7 @@ st.markdown("<hr>", unsafe_allow_html=True)
 
 
 # Top 5 Product Categories
-top_categories = df['product_category_name_english'].value_counts().head(5)
+top_categories = df_filtered['product_category_name_english'].value_counts().head(5)
 st.subheader("Top 5 Product Categories")
 fig4, ax4 = plt.subplots(figsize=(10, 5))
 bars = ax4.barh(top_categories.index, top_categories.values, color='royalblue')
