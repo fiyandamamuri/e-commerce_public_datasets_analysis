@@ -227,13 +227,12 @@ elif page == "RFM Analysis":
 
     # Segmentasi pelanggan berdasarkan RFM Score
     conditions = [
-        (rfm['RFM_Score'] > 4.5),
-        (rfm['RFM_Score'] > 4) & (rfm['RFM_Score'] <= 4.5),
+        (rfm['RFM_Score'] > 4),
         (rfm['RFM_Score'] > 3) & (rfm['RFM_Score'] <= 4),
-        (rfm['RFM_Score'] > 1.6) & (rfm['RFM_Score'] <= 3),
-        (rfm['RFM_Score'] <= 1.6)
+        (rfm['RFM_Score'] > 2) & (rfm['RFM_Score'] <= 3),
+        (rfm['RFM_Score'] <= 2)
     ]
-    labels = ["Top Customer", "High Value Customer", "Medium Value Customer", "Low Value Customer", "Lost Customer"]
+    labels = ["Top Customer", "High Value Customer", "Medium Value Customer", "Low Customer"]
     rfm["customer_segment"] = np.select(conditions, labels, default="Unknown")
 
     # Pilihan filter berdasarkan segmen pelanggan
@@ -264,11 +263,10 @@ elif page == "RFM Analysis":
     - **M_Score** → Skor Monetary (1-4), 4 berarti pengeluaran besar, 1 berarti kecil.
     - **RFM_Score** → Skor rata-rata R, F, dan M (1.0 - 4.0).
     - **customer_segment** → Segmen pelanggan berdasarkan RFM Score:
-        - **Top Customer** → RFM_Score > 4.5
-        - **High Value Customer** → 4.5 > RFM_Score > 4
-        - **Medium Value Customer** → 4 > RFM_Score > 3
-        - **Low Value Customer** → 3 > RFM_Score > 1.6
-        - **Lost Customer** → RFM_Score < 1.6
+        - **Top Customer** → RFM_Score > 4  
+        - **High Value Customer** → 4 ≥ RFM_Score > 3  
+        - **Medium Value Customer** → 3 ≥ RFM_Score > 2  
+        - **Low Value Customer** → ≤ 2  
     """)
 
 
