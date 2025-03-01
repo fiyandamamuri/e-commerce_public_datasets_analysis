@@ -11,7 +11,7 @@ st.sidebar.title("📍 Navigation")
 page = st.sidebar.selectbox("Select a Page:", ["Dashboard", "RFM Analysis"])
 
 # Load dataset
-df = pd.read_csv("datasets_cleaned.csv")
+df = pd.read_csv("dashboard\datasets_cleaned.csv")
 
 # Pastikan timestamp dalam format datetime
 df['order_purchase_timestamp'] = pd.to_datetime(df['order_purchase_timestamp'])
@@ -26,7 +26,7 @@ if page == "Dashboard":
     st.title("📊 Business Insights Dashboard | Brazilian E-Commerce Public Dataset by Olist")
     
     st.write("Dashboard utama berisi insight bisnis berdasarkan data transaksi.")
-    st.image("dataset-cover.png", use_container_width=True) 
+    st.image("dashboard\dataset-cover.png", use_container_width=True) 
 
     # Sidebar: Profil
     with st.sidebar:
