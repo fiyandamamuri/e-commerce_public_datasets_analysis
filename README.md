@@ -7,7 +7,6 @@
 
 
 ## Instalasi
-```
 ### Install semua dependensi dari requirements.txt
 ```
 pip install -r requirements.txt
