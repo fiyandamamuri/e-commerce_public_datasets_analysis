@@ -11,7 +11,7 @@
 ```
 pip install -r requirements.txt
 ```
-### Cara Menjalankan streamlit App
+### Jalankan perintah berikut untuk menampilkan dashboard streamlit
 ```
 streamlit run dashboard/dashboard.py
 ```
