@@ -1,0 +1,14 @@
+{
+  "name": "E-Commerce Data Analysis",
+  "dockerFile": "../Dockerfile",
+  "context": "..",
+  "settings": {
+    "python.defaultInterpreterPath": "/opt/venv/bin/python"
+  },
+  "extensions": [
+    "ms-python.python",
+    "ms-toolsai.jupyter",
+    "ms-python.debugpy"
+  ],
+  "remoteUser": "root"
+}
