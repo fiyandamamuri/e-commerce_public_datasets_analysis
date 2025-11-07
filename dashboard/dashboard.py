@@ -30,8 +30,20 @@ merged_data, rfm = load_data()
 # ----------------------------------------------------
 st.sidebar.header("🔍 Filter Data")
 
-years = sorted(merged_data["order_purchase_timestamp"].dt.year.unique())
-selected_year = st.sidebar.multiselect("Pilih Tahun:", years, default=years)
+# Date range filter dengan try-except block
+try:
+    min_date = merged_data["order_purchase_timestamp"].min().date()
+    max_date = merged_data["order_purchase_timestamp"].max().date()
+    
+    col1, col2 = st.sidebar.columns(2)
+    with col1:
+        start_date = st.date_input("Tanggal Mulai", min_date, min_value=min_date, max_value=max_date)
+    with col2:
+        end_date = st.date_input("Tanggal Akhir", max_date, min_value=min_date, max_value=max_date)
+except Exception as e:
+    st.sidebar.warning("Error dalam memuat rentang tanggal. Menggunakan semua data.")
+    start_date = None
+    end_date = None
 
 states = sorted(merged_data["customer_state"].dropna().unique())
 selected_states = st.sidebar.multiselect("Pilih Negara Bagian:", states, default=states)
@@ -43,11 +55,19 @@ payment_types = sorted(merged_data["payment_type"].dropna().unique())
 selected_payment = st.sidebar.multiselect("Pilih Metode Pembayaran:", payment_types)
 
 # Filter dataset berdasarkan input
-filtered_data = merged_data[
-    merged_data["order_purchase_timestamp"].dt.year.isin(selected_year)
-    & merged_data["customer_state"].isin(selected_states)
-].copy()
+filtered_data = merged_data.copy()
 
+# Filter berdasarkan date range
+try:
+    if start_date and end_date:
+        mask = (filtered_data["order_purchase_timestamp"].dt.date >= start_date) & \
+               (filtered_data["order_purchase_timestamp"].dt.date <= end_date)
+        filtered_data = filtered_data[mask]
+except Exception as e:
+    st.sidebar.warning("Error dalam menerapkan filter tanggal.")
+
+# Filter lainnya
+filtered_data = filtered_data[filtered_data["customer_state"].isin(selected_states)]
 if selected_categories:
     filtered_data = filtered_data[filtered_data["product_category_name_english"].isin(selected_categories)]
 if selected_payment:
