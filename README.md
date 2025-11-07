@@ -366,7 +366,7 @@ Analisis RFM (Recency, Frequency, Monetary) dengan pendekatan quantile untuk men
 
 ## 7️⃣ Insight & Business Recommendation
 
-### Pertanyaan 1: Bagaimana distribusi pelanggan per kota selama periode 2016–2018, dan apakah terdapat perubahan signifikan di 5 kota teratas dibandingkan kota lainnya?
+#### Pertanyaan 1: Bagaimana distribusi pelanggan per kota selama periode 2016–2018, dan apakah terdapat perubahan signifikan di 5 kota teratas dibandingkan kota lainnya?
 
 #### **Insight:**
 Distribusi pelanggan e-commerce selama periode 2016–2018 menunjukkan konsentrasi geografis yang sangat tinggi di kota-kota besar Brasil. São Paulo mendominasi dengan 18.267 pelanggan (hampir 20% dari total), diikuti Rio de Janeiro dengan 8.022 pelanggan—menciptakan gap signifikan dibandingkan kota-kota lainnya. Dari perspektif negara bagian, SP (São Paulo state) mencakup lebih dari 52% total pelanggan dengan 48.797 pelanggan, mengonfirmasi dominasi wilayah Tenggara sebagai pusat aktivitas e-commerce. Lima kota teratas (São Paulo, Rio de Janeiro, Belo Horizonte, Brasília, dan Curitiba) tetap konsisten selama periode analisis tanpa perubahan signifikan dalam ranking, menunjukkan stabilitas pola konsumsi geografis yang kuat.
@@ -468,6 +468,15 @@ Dengan meningkatkan repeat purchase rate bahkan hanya 2–3%, bisnis dapat mempe
 Selama periode 2016–2018, **São Paulo (SP)** menjadi kontributor utama pendapatan dengan total penjualan mencapai **R$ 7,5 juta**, jauh melampaui **Rio de Janeiro (RJ)** sebesar **R$ 2,7 juta** dan **Minas Gerais (MG)** sebesar **R$ 2,3 juta**. Ketiga negara bagian ini menyumbang lebih dari **75% total pendapatan**, menegaskan dominasi wilayah **Tenggara Brasil** sebagai pusat aktivitas e-commerce.
 Negara bagian di wilayah **Selatan** seperti **Rio Grande do Sul (RS)** dan **Paraná (PR)** juga berkontribusi cukup besar (di atas R$ 1 juta), sementara wilayah **Utara dan Timur Laut** seperti **Roraima (RR)**, **Amapá (AP)**, dan **Acre (AC)** memiliki kontribusi yang sangat kecil (< R$ 30 ribu).
 Distribusi ini menunjukkan adanya **kesenjangan geografis** dalam performa penjualan, yang kemungkinan disebabkan oleh perbedaan infrastruktur logistik, tingkat urbanisasi, dan daya beli masyarakat.
+
+#### **Rekomendasi Bisnis:**
+
+* **Fokuskan strategi pemasaran dan promosi** di wilayah berkontribusi tinggi (SP, RJ, MG) untuk memaksimalkan pendapatan jangka pendek dan mempertahankan dominasi pasar.
+* **Perluas penetrasi ke wilayah dengan kontribusi rendah** namun berpotensi tumbuh, seperti wilayah Utara dan Timur Laut, melalui strategi ekspansi bertahap (diskon pengiriman, kerja sama logistik lokal, atau kampanye digital lokal).
+* **Analisis rata-rata nilai transaksi per wilayah** untuk memahami perilaku belanja dan potensi upselling di tiap state.
+* **Tingkatkan efisiensi rantai pasok** di wilayah dengan logistik sulit agar biaya pengiriman lebih kompetitif dan dapat menarik lebih banyak pelanggan baru.
+
+Dengan strategi ganda—**optimasi di wilayah utama dan ekspansi di pasar potensial**—platform dapat memperluas pangsa pasar sekaligus meningkatkan profitabilitas nasional secara berkelanjutan.
 
 ---
 
