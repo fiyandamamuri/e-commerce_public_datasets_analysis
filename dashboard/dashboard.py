@@ -1,272 +1,236 @@
-import pandas as pd
-import numpy as np
 import streamlit as st
-import matplotlib.pyplot as plt
+import pandas as pd
+import plotly.express as px
 
-# Configure Streamlit
-st.set_page_config(layout="wide", page_title="Business Insights Dashboard")
+# ----------------------------------------------------
+# 🧭 1️⃣ CONFIGURASI DASAR
+# ----------------------------------------------------
+st.set_page_config(
+    page_title="E-Commerce Dashboard",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 
-# Sidebar Navigation
-st.sidebar.title("📍 Navigation")
-page = st.sidebar.selectbox("Select a Page:", ["Dashboard", "RFM Analysis"])
+st.title("🛍️ E-Commerce Data Analysis Dashboard")
+st.markdown("Visualisasi interaktif hasil eksplorasi data e-commerce (2016–2018)")
 
-# Load dataset
-df = pd.read_csv("dashboard/datasets_cleaned.csv")
+# ----------------------------------------------------
+# 📂 2️⃣ LOAD DATA
+# ----------------------------------------------------
+@st.cache_data
+def load_data():
+    merged_data = pd.read_csv("dashboard/cleaned_merged_data.csv", parse_dates=["order_purchase_timestamp"])
+    rfm = pd.read_csv("dashboard/rfm.csv")
+    return merged_data, rfm
 
-# Pastikan timestamp dalam format datetime
-df['order_purchase_timestamp'] = pd.to_datetime(df['order_purchase_timestamp'])
-df['order_delivered_customer_date'] = pd.to_datetime(df['order_delivered_customer_date'])
-df['order_estimated_delivery_date'] = pd.to_datetime(df['order_estimated_delivery_date'])
-df['shipping_limit_date'] = pd.to_datetime(df['shipping_limit_date'])
+merged_data, rfm = load_data()
 
-# ===========================
-# HALAMAN 1: DASHBOARD UTAMA
-# ===========================
-if page == "Dashboard":
-    st.title("📊 Business Insights Dashboard | Brazilian E-Commerce Public Dataset by Olist")
+# ----------------------------------------------------
+# 🎛️ 3️⃣ SIDEBAR FILTER
+# ----------------------------------------------------
+st.sidebar.header("🔍 Filter Data")
+
+years = sorted(merged_data["order_purchase_timestamp"].dt.year.unique())
+selected_year = st.sidebar.multiselect("Pilih Tahun:", years, default=years)
+
+states = sorted(merged_data["customer_state"].dropna().unique())
+selected_states = st.sidebar.multiselect("Pilih Negara Bagian:", states, default=states)
+
+categories = sorted(merged_data["product_category_name_english"].dropna().unique())
+selected_categories = st.sidebar.multiselect("Pilih Kategori Produk:", categories)
+
+payment_types = sorted(merged_data["payment_type"].dropna().unique())
+selected_payment = st.sidebar.multiselect("Pilih Metode Pembayaran:", payment_types)
+
+# Filter dataset berdasarkan input
+filtered_data = merged_data[
+    merged_data["order_purchase_timestamp"].dt.year.isin(selected_year)
+    & merged_data["customer_state"].isin(selected_states)
+].copy()
+
+if selected_categories:
+    filtered_data = filtered_data[filtered_data["product_category_name_english"].isin(selected_categories)]
+if selected_payment:
+    filtered_data = filtered_data[filtered_data["payment_type"].isin(selected_payment)]
+
+# ✅ Pastikan kolom tanggal tetap datetime (hindari TypeError)
+date_cols = [
+    "order_purchase_timestamp",
+    "order_delivered_customer_date",
+    "order_approved_at",
+    "order_estimated_delivery_date"
+]
+for col in date_cols:
+    if col in filtered_data.columns:
+        filtered_data[col] = pd.to_datetime(filtered_data[col], errors="coerce")
+
+
+# ----------------------------------------------------
+# 🧱 4️⃣ STRUKTUR TAB DASHBOARD
+# ----------------------------------------------------
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    "📊 Overview",
+    "👥 Customer",
+    "💳 Payment",
+    "📦 Product & Seller",
+    "⭐ Review & Delivery"
+])
+
+# ----------------------------------------------------
+# 📊 5️⃣ TAB 1: OVERVIEW
+# ----------------------------------------------------
+with tab1:
+    st.subheader("📈 Business Overview")
+
+    col1, col2, col3, col4 = st.columns(4)
+    total_revenue = filtered_data["payment_value"].sum()
+    total_orders = filtered_data["order_id"].nunique()
+    avg_order = filtered_data["payment_value"].mean()
+    avg_delivery = (filtered_data["order_delivered_customer_date"] - filtered_data["order_purchase_timestamp"]).dt.days.mean()
+
+    col1.metric("💰 Total Revenue (BRL)", f"{total_revenue:,.0f}")
+    col2.metric("📦 Total Orders", f"{total_orders:,}")
+    col3.metric("💳 Avg. Order Value", f"{avg_order:,.0f}")
+    col4.metric("⏱️ Avg. Delivery (Days)", f"{avg_delivery:.1f}")
+
+    # Tren jumlah pesanan per bulan
+    filtered_data["month"] = filtered_data["order_purchase_timestamp"].dt.to_period("M").astype(str)
+    orders_per_month = filtered_data.groupby("month")["order_id"].nunique().reset_index()
+    fig_monthly = px.line(orders_per_month, x="month", y="order_id", title="📅 Tren Jumlah Pesanan per Bulan")
+    st.plotly_chart(fig_monthly, use_container_width=True)
+
+    # Pendapatan per negara bagian
+    revenue_state = filtered_data.groupby("customer_state")["payment_value"].sum().sort_values(ascending=False).reset_index()
+    fig_state = px.bar(revenue_state, x="customer_state", y="payment_value", title="💵 Total Pendapatan per Negara Bagian")
+    st.plotly_chart(fig_state, use_container_width=True)
+
+# ----------------------------------------------------
+# 👥 6️⃣ TAB 2: CUSTOMER
+# ----------------------------------------------------
+with tab2:
+    st.subheader("👥 Customer Demographics & Behavior")
+
+    # Distribusi pelanggan per kota
+    top_cities = filtered_data["customer_city"].value_counts().head(10).reset_index()
+    top_cities.columns = ["City", "Count"]
+    top_cities = top_cities.sort_values("Count", ascending=True)
+    fig_city = px.bar(top_cities, x="Count", y="City",
+                     title="Top 10 Kota dengan Pelanggan Terbanyak",
+                     labels={"City": "Kota", "Count": "Jumlah Pelanggan"})
+    fig_city.update_layout(
+        xaxis_tickangle=-45,
+        showlegend=False
+    )
+    st.plotly_chart(fig_city, use_container_width=True)
+
+    # Proporsi pelanggan baru vs repeat
+    st.markdown("### 🔁 Proporsi Pelanggan Baru vs Repeat")
+    purchase_count = filtered_data.groupby("customer_unique_id")["order_id"].nunique()
+    new_vs_repeat = purchase_count.gt(1).value_counts().rename({True: "Repeat", False: "New"})
+    fig_repeat = px.pie(values=new_vs_repeat.values, names=new_vs_repeat.index, hole=0.4, title="Proporsi Pelanggan Baru vs Repeat")
+    st.plotly_chart(fig_repeat, use_container_width=True)
+
+    # Segmentasi RFM
+    st.markdown("### 💎 Segmentasi Pelanggan (RFM)")
+    seg_counts = rfm["Customer_Segment"].value_counts().reset_index()
+    seg_counts.columns = ["Segment", "Customers"]
+    fig_rfm = px.bar(seg_counts, x="Segment", y="Customers", color="Segment", title="Distribusi Segmen Pelanggan (RFM)")
+    st.plotly_chart(fig_rfm, use_container_width=True)
+
+    # Pemetaan Pelanggan Berdasarkan Frequency & Monetary
+    st.markdown("### 📍 Pemetaan Pelanggan Berdasarkan Frequency & Monetary")
+    fig_rf = px.scatter(rfm, x="Frequency", y="Monetary", color="Customer_Segment", title="Pemetaan Pelanggan Berdasarkan Frequency & Monetary")
+    st.plotly_chart(fig_rf, use_container_width=True)
+
+    # RFM heatmap
+    rfm_heatmap = rfm.groupby(['R_score','F_score']).size().unstack(fill_value=0)
+    st.plotly_chart(px.imshow(rfm_heatmap, title="RFM Heatmap"), use_container_width=True)
+
+    # RFM filter with query params
+    st.markdown("### 📝 Table RFM Pelanggan")
+    default_segments = st.query_params.get_all("segments") or []
     
-    st.write("Dashboard utama berisi insight bisnis berdasarkan data transaksi.")
-    st.image("dashboard/dataset-cover.png", use_container_width=True) 
-
-    # Sidebar: Profil
-    with st.sidebar:
-
-    # Filter Options
-        st.subheader("Filters")
-        
-        # Filter berdasarkan Tanggal
-        start_date = st.date_input("Start Date", df['order_purchase_timestamp'].min())
-        end_date = st.date_input("End Date", df['order_purchase_timestamp'].max())
-        
-        df_filtered = df[(df['order_purchase_timestamp'] >= pd.to_datetime(start_date)) & 
-                        (df['order_purchase_timestamp'] <= pd.to_datetime(end_date))]
-        
-        # Filter berdasarkan Kategori Produk
-        product_categories = df_filtered['product_category_name_english'].unique()
-        selected_category = st.selectbox("Select Product Category", options=["All"] + list(product_categories))
-        if selected_category != "All":
-            df_filtered = df_filtered[df_filtered['product_category_name_english'] == selected_category]
-
-        # Filter berdasarkan State
-        states = df_filtered['customer_state'].unique()
-        selected_state = st.selectbox("Select State", options=["All"] + list(states))
-        if selected_state != "All":
-            df_filtered = df_filtered[df_filtered['customer_state'] == selected_state]
-
-        st.subheader("My Profile")
-        st.markdown("""
-        **Name:** Fiyanda Ma'muri  
-        **Email:** fiyandamamuri@gmail.com  
-        **LinkedIn:** [Profil LinkedIn](https://id.linkedin.com/in/fiyandamamuri/)  
-        **GitHub:** [Profil GitHub](https://github.com/fiyandamamuri)  
-        """)
-
-    # Hitung KPI berdasarkan data yang sudah difilter
-    total_orders = df_filtered["order_id"].nunique()
-    total_revenue = df_filtered["payment_value"].sum()
-    avg_order_value = total_revenue / total_orders
-    total_customers = df_filtered["customer_unique_id"].nunique()
-
-    # Update metrics
-    st.markdown("<hr>", unsafe_allow_html=True)
-    col1, col2, col3, col4= st.columns(4)
-
-    with col1:
-        st.metric(label="Total Orders", value=f"{total_orders:,}")
-
-    with col2:
-        st.metric(label="Total Revenue", value=f"${total_revenue:,.2f}")
-
-    with col3:
-        st.metric(label="Avg Order Value", value=f"${avg_order_value:,.2f}")
-
-    with col4:
-        st.metric(label="Total Customers", value=f"{total_customers:,}")
-
-    st.markdown("<hr>", unsafe_allow_html=True)
-
-
-
-    # Top 5 Cities with Most Customers (Filtered)
-    top_cities = (
-        df_filtered.groupby("customer_city")["customer_unique_id"]
-        .nunique()
-        .sort_values(ascending=False)
-        .reset_index()
-        .rename(columns={"customer_unique_id": "unique_customers"})
-        .head(5)
+    rfm_segments = list(rfm["Customer_Segment"].unique())
+    selected_rfm = st.multiselect(
+        "Pilih Segmen Pelanggan:",
+        options=rfm_segments,
+        default=default_segments if default_segments else None,
+        key="rfm_segments"
     )
 
-    st.subheader("Top 5 Cities with Most Customers")
-
-    fig1, ax1 = plt.subplots(figsize=(14, 5))
-    bars = ax1.barh(top_cities["customer_city"], top_cities["unique_customers"], color='teal')
-
-    ax1.set_title("Top 5 Cities with Most Customers")
-    ax1.set_xlabel("Number of Customers")
-    ax1.set_ylabel("City")
-    ax1.invert_yaxis()  # Membalik sumbu agar kota dengan pelanggan terbanyak di atas
-
-    # Menambahkan label pada setiap bar
-    for bar, value in zip(bars, top_cities["unique_customers"]):
-        ax1.text(bar.get_width() + 5, bar.get_y() + bar.get_height()/2, f'{value:,}', va='center', fontsize=10)
-
-    st.pyplot(fig1)
-
-    st.markdown("<hr>", unsafe_allow_html=True)
-    st.markdown("<hr>", unsafe_allow_html=True)
-
-
-
-    # Menampilkan subjudul
-    st.subheader("Payment Type Distribution")
-    payment_type_counts = df_filtered['payment_type'].value_counts()
-
-    # Membuat layout kolom agar pie chart tidak memenuhi layar
-    col1, col2, col3 = st.columns([1, 2, 1])  # Tengah lebih lebar
-
-    with col2:  # Menempatkan di tengah agar lebih kecil
-        fig, ax = plt.subplots(figsize=(2, 2), dpi=100, constrained_layout=True)  # Ukuran lebih kecil dan layout terkontrol
-        colors = plt.cm.tab10(np.linspace(0, 1, len(payment_type_counts)))
-        
-        wedges, texts, autotexts = ax.pie(payment_type_counts.values, 
-                                        labels=payment_type_counts.index, 
-                                        autopct='%1.1f%%', 
-                                        colors=colors, 
-                                        startangle=120, 
-                                        wedgeprops={'edgecolor': 'white'})
-
-        
-        # Mengatur ukuran font
-        for text in texts:  
-            text.set_fontsize(4)  # Ukuran label lebih kecil
-        for autotext in autotexts:  
-            autotext.set_fontsize(4)  # Ukuran persentase lebih kecil
-
-        ax.axis('equal')  # Agar tetap berbentuk lingkaran
-        ax.set_title('Payment Type Distribution', fontsize=4)
-
-        # Menampilkan plot di Streamlit
-        st.pyplot(fig)
-
-    st.markdown("<hr>", unsafe_allow_html=True)
-    st.markdown("<hr>", unsafe_allow_html=True)
-
-
-    # Trend of Orders per Month
-    orders_by_month = (
-        df_filtered['order_purchase_timestamp']
-        .dt.to_period('M')
-        .value_counts()
-        .sort_index()
-    )
-    orders_by_month_df = orders_by_month.reset_index()
-    orders_by_month_df.columns = ['Month', 'Order Count']
-    orders_by_month_df['Month'] = orders_by_month_df['Month'].dt.to_timestamp()
-
-    st.subheader("Trend of Orders per Month")
-    fig3, ax3 = plt.subplots(figsize=(12, 5))
-    ax3.plot(orders_by_month_df['Month'], orders_by_month_df['Order Count'], marker='o', linestyle='-', color='teal')
-    ax3.set_title("Trend of Orders per Month")
-    ax3.set_xlabel("Month")
-    ax3.set_ylabel("Order Count")
-    ax3.grid(True, linestyle='--', alpha=0.6)
-    for i, row in orders_by_month_df.iterrows():
-        ax3.text(row['Month'], row['Order Count'] + 10, f"{row['Order Count']:,}", ha='center', fontsize=8  )
-    st.pyplot(fig3)
-
-    st.markdown("<hr>", unsafe_allow_html=True)
-    st.markdown("<hr>", unsafe_allow_html=True)
-
-
-
-    # Top 5 Product Categories
-    top_categories = df_filtered['product_category_name_english'].value_counts().head(5)
-    st.subheader("Top 5 Product Categories")
-    fig4, ax4 = plt.subplots(figsize=(12, 5))
-    bars = ax4.barh(top_categories.index, top_categories.values, color='royalblue')
-    ax4.set_title("Top 5 Product Categories")
-    ax4.set_xlabel("Number of Products Sold")
-    ax4.set_ylabel("Product Category")
-    ax4.invert_yaxis()
-    for bar in bars:
-        ax4.text(bar.get_width() + 5, bar.get_y() + bar.get_height()/2, f'{bar.get_width():,}', va='center', fontsize=8)
-    st.pyplot(fig4)
-
-    st.markdown("<hr>", unsafe_allow_html=True)
-
-# ===========================
-# HALAMAN 2: RFM ANALYSIS
-# ===========================
-elif page == "RFM Analysis":
-    st.title("📈 RFM Analysis Dashboard")
-
-    # Menentukan tanggal referensi untuk analisis RFM
-    reference_date = df['order_purchase_timestamp'].max() + pd.Timedelta(days=1)
-
-    # Menghitung RFM Metrics
-    rfm = df.groupby('customer_unique_id').agg({
-        'order_purchase_timestamp': lambda x: (reference_date - x.max()).days,  # Recency
-        'order_id': 'count',  # Frequency
-        'payment_value': 'sum'  # Monetary
-    }).reset_index()
-
-    # Ubah nama kolom agar lebih mudah dibaca
-    rfm.columns = ['customer_unique_id', 'Recency', 'Frequency', 'Monetary']
-
-    # Skoring RFM dengan kuartil
-    rfm['R_Score'] = pd.qcut(rfm['Recency'], q=4, labels=[4, 3, 2, 1])
-    rfm['F_Score'] = pd.qcut(rfm['Frequency'].rank(method="first"), q=4, labels=[1, 2, 3, 4])
-    rfm['M_Score'] = pd.qcut(rfm['Monetary'].rank(method="first"), q=4, labels=[1, 2, 3, 4])
-
-    # Konversi skor ke tipe numerik
-    rfm[['R_Score', 'F_Score', 'M_Score']] = rfm[['R_Score', 'F_Score', 'M_Score']].astype(int)
-
-    # Menghitung RFM Score sebagai rata-rata dari ketiga skor
-    rfm['RFM_Score'] = rfm[['R_Score', 'F_Score', 'M_Score']].mean(axis=1)
-
-    # Segmentasi pelanggan berdasarkan RFM Score
-    conditions = [
-        (rfm['RFM_Score'] > 4),
-        (rfm['RFM_Score'] > 3) & (rfm['RFM_Score'] <= 4),
-        (rfm['RFM_Score'] > 2) & (rfm['RFM_Score'] <= 3),
-        (rfm['RFM_Score'] <= 2)
-    ]
-    labels = ["Top Customer", "High Value Customer", "Medium Value Customer", "Low Customer"]
-    rfm["customer_segment"] = np.select(conditions, labels, default="Unknown")
-
-    # Pilihan filter berdasarkan segmen pelanggan
-    segment_options = ["All"] + list(rfm["customer_segment"].unique())
-    selected_segment = st.selectbox("Filter by Customer Segment:", segment_options)
-
-    # Filter data berdasarkan segmen yang dipilih, lalu urutkan dari terbesar ke terkecil
-    if selected_segment != "All":
-        filtered_rfm = rfm[rfm["customer_segment"] == selected_segment].sort_values(by="RFM_Score", ascending=False)
+    # Update query params
+    if selected_rfm:
+        st.query_params["segments"] = selected_rfm
+        filtered_rfm = rfm[rfm["Customer_Segment"].isin(selected_rfm)]
+        st.dataframe(filtered_rfm)
     else:
-        filtered_rfm = rfm.sort_values(by="RFM_Score", ascending=False)
+        st.query_params.clear()
+        st.info("Silakan pilih setidaknya satu segmen pelanggan untuk menampilkan data.")
 
-    # Tampilkan tabel RFM
-    st.dataframe(filtered_rfm)
+# ----------------------------------------------------
+# 💳 7️⃣ TAB 3: PAYMENT
+# ----------------------------------------------------
+with tab3:
+    st.subheader("💳 Payment & Transaction Insights")
 
-    st.write("""
-    RFM Analysis bertujuan untuk mengelompokkan pelanggan berdasarkan perilaku mereka dalam transaksi e-commerce menggunakan Recency (R), Frequency (F), dan Monetary (M).
-    """)
+    # Distribusi metode pembayaran
+    pay_dist = filtered_data["payment_type"].value_counts(normalize=True).mul(100).reset_index()
+    pay_dist.columns = ["Payment Type", "Percentage"]
+    fig_payment = px.pie(pay_dist, values="Percentage", names="Payment Type", hole=0.4, title="Distribusi Metode Pembayaran")
+    st.plotly_chart(fig_payment, use_container_width=True)
 
-    st.subheader("Penjelasan Kolom:")
-    st.markdown("""
-    - **customer_unique_id** → ID unik dari pelanggan.
-    - **Recency** → Seberapa lama sejak pelanggan terakhir bertransaksi (dalam hari).
-    - **Frequency** → Berapa kali pelanggan telah bertransaksi dalam periode tertentu.
-    - **Monetary** → Total uang yang telah dibelanjakan oleh pelanggan.
-    - **R_Score** → Skor Recency (1-4), 4 berarti baru aktif, 1 berarti lama tidak aktif.
-    - **F_Score** → Skor Frequency (1-4), 4 berarti sering transaksi, 1 berarti jarang.
-    - **M_Score** → Skor Monetary (1-4), 4 berarti pengeluaran besar, 1 berarti kecil.
-    - **RFM_Score** → Skor rata-rata R, F, dan M (1.0 - 4.0).
-    - **customer_segment** → Segmen pelanggan berdasarkan RFM Score:
-        - **Top Customer** → RFM_Score > 4  
-        - **High Value Customer** → 4 ≥ RFM_Score > 3  
-        - **Medium Value Customer** → 3 ≥ RFM_Score > 2  
-        - **Low Value Customer** → ≤ 2  
-    """)
+    # Nilai transaksi rata-rata per metode
+    avg_payment_value = filtered_data.groupby("payment_type")["payment_value"].mean().reset_index()
+    fig_avg_payment = px.bar(avg_payment_value, x="payment_type", y="payment_value", title="Rata-rata Nilai Transaksi per Metode")
+    st.plotly_chart(fig_avg_payment, use_container_width=True)
 
+# ----------------------------------------------------
+# 📦 8️⃣ TAB 4: PRODUCT & SELLER
+# ----------------------------------------------------
+with tab4:
+    st.subheader("📦 Product & Seller Performance")
 
+    # Top kategori produk
+    top_categories = filtered_data["product_category_name_english"].value_counts().head(10).reset_index()
+    top_categories.columns = ["Category", "Orders"]
+    top_categories = top_categories.sort_values("Orders", ascending=True)
+    fig_cat = px.bar(top_categories, x="Category", y="Category", orientation="h", title="Top 10 Kategori Produk Paling Populer")
+    st.plotly_chart(fig_cat, use_container_width=True)
+
+    # Top seller
+    top_sellers = (
+        filtered_data.groupby("seller_id")["payment_value"].sum()
+        .sort_values(ascending=False)
+        .head(10)
+        .reset_index()
+    )
+    fig_seller = px.bar(top_sellers, x="seller_id", y="payment_value", title="Top 10 Penjual dengan Penjualan Tertinggi")
+    st.plotly_chart(fig_seller, use_container_width=True)
+
+# ----------------------------------------------------
+# ⭐ 9️⃣ TAB 5: REVIEW & DELIVERY
+# ----------------------------------------------------
+with tab5:
+    st.subheader("⭐ Review & Delivery Analysis")
+
+    # Distribusi skor ulasan
+    review_dist = filtered_data["review_score"].value_counts().sort_index().reset_index()
+    review_dist.columns = ["Review Score", "Count"]
+    fig_review = px.bar(review_dist, x="Review Score", y="Count", title="Distribusi Skor Ulasan")
+    st.plotly_chart(fig_review, use_container_width=True)
+
+    # Korelasi review vs waktu pengiriman
+    filtered_data["delivery_time"] = (
+        filtered_data["order_delivered_customer_date"] - filtered_data["order_purchase_timestamp"]
+    ).dt.days
+    fig_corr = px.scatter(filtered_data, x="delivery_time", y="review_score", trendline="ols",
+                          title="Korelasi antara Waktu Pengiriman dan Skor Ulasan")
+    st.plotly_chart(fig_corr, use_container_width=True)
+
+    avg_delivery_time = filtered_data["delivery_time"].mean()
+    st.metric("⏱️ Rata-rata Waktu Pengiriman (hari)", f"{avg_delivery_time:.1f}")
+
+# ----------------------------------------------------
+# 📝 10️⃣ CATATAN
+# ----------------------------------------------------
+st.sidebar.info("💡 Gunakan filter di kiri untuk menyesuaikan tampilan data sesuai kebutuhan analisis.")
