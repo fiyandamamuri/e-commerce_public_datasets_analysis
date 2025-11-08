@@ -73,7 +73,8 @@ Dataset berasal dari Olist Brazilian E-Commerce Public Dataset yang tersedia di 
 | `shipping_limit_date` | Batas waktu penjual untuk mengirim produk    |
 | `price`               | Harga produk (tanpa ongkir)                  |
 | `freight_value`       | Biaya pengiriman untuk item tersebut         |
-|
+
+
 
 **order_reviews_datasets : ulasan pelanggan**
 
@@ -86,7 +87,8 @@ Dataset berasal dari Olist Brazilian E-Commerce Public Dataset yang tersedia di 
 | `review_comment_message`  | Isi komentar atau ulasan pelanggan            |
 | `review_creation_date`    | Tanggal ulasan dibuat                         |
 | `review_answer_timestamp` | Tanggal sistem merespons atau mencatat ulasan |
-|
+
+
 
 **orders_dataset : informasi pesanan**
 
@@ -100,7 +102,8 @@ Dataset berasal dari Olist Brazilian E-Commerce Public Dataset yang tersedia di 
 | `order_delivered_carrier_date`  | Tanggal pesanan dikirim ke ekspedisi                |
 | `order_delivered_customer_date` | Tanggal pesanan diterima oleh pelanggan             |
 | `order_estimated_delivery_date` | Estimasi tanggal pesanan akan diterima pelanggan    |
-|
+
+
 
 **products_dataset :  informasi produk**
 
@@ -115,7 +118,8 @@ Dataset berasal dari Olist Brazilian E-Commerce Public Dataset yang tersedia di 
 | `product_length_cm`          | Panjang produk (cm)                          |
 | `product_height_cm`          | Tinggi produk (cm)                           |
 | `product_width_cm`           | Lebar produk (cm)                            |
-|
+
+
 
 **geolocation_dataset : data geolokasi**
 
@@ -126,7 +130,8 @@ Dataset berasal dari Olist Brazilian E-Commerce Public Dataset yang tersedia di 
 | `geolocation_lng`             | Koordinat bujur (longitude)   |
 | `geolocation_city`            | Nama kota                     |
 | `geolocation_state`           | Kode negara bagian (provinsi) |
-|
+
+
 
 **sellers_dataset : informasi penjual**
 
@@ -136,7 +141,8 @@ Dataset berasal dari Olist Brazilian E-Commerce Public Dataset yang tersedia di 
 | `seller_zip_code_prefix` | Kode pos penjual                 |
 | `seller_city`            | Kota tempat penjual berada       |
 | `seller_state`           | Negara bagian (provinsi) penjual |
-|
+
+
 
 **order_payments : detail pembayaran**
 
@@ -147,7 +153,8 @@ Dataset berasal dari Olist Brazilian E-Commerce Public Dataset yang tersedia di 
 | `payment_type`         | Jenis pembayaran (credit_card, boleto, voucher, dll.) |
 | `payment_installments` | Jumlah cicilan pembayaran                             |
 | `payment_value`        | Total nilai pembayaran (termasuk biaya tambahan)      |
-|
+
+
 
 **customers_dataset : informasi pelanggan**
 
@@ -157,8 +164,9 @@ Dataset berasal dari Olist Brazilian E-Commerce Public Dataset yang tersedia di 
 | `customer_unique_id`       | ID unik untuk pelanggan di seluruh pesanan (pelanggan bisa punya banyak `customer_id`) |
 | `customer_zip_code_prefix` | Kode pos pelanggan                                                                     |
 | `customer_city`            | Kota tempat pelanggan tinggal                                                          |
-| `customer_state`           | Negara bagian (provinsi) pelanggan                    q                                 |
-|
+| `customer_state`           | Negara bagian (provinsi) pelanggan                                                     |
+
+
 
 **product_category_name_translation : terjemahan nama kategori produk**
 
@@ -166,7 +174,8 @@ Dataset berasal dari Olist Brazilian E-Commerce Public Dataset yang tersedia di 
 | ------------------------------- | -------------------------------------- |
 | `product_category_name`         | Nama kategori produk (bahasa Portugis) |
 | `product_category_name_english` | Nama kategori produk (bahasa Inggris)  |
-|
+
+
 
 
 ## 4️⃣ Data Preparation
