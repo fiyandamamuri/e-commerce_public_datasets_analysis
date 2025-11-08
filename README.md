@@ -498,23 +498,11 @@ Dari scatter plot terlihat bahwa pelanggan High Value memang berbeda: mereka bel
 
 ---
 
-#### **Rekomendasi Bisnis:**
-
-* **Fokuskan strategi pemasaran dan promosi** di wilayah berkontribusi tinggi (SP, RJ, MG) untuk memaksimalkan pendapatan jangka pendek dan mempertahankan dominasi pasar.
-* **Perluas penetrasi ke wilayah dengan kontribusi rendah** namun berpotensi tumbuh, seperti wilayah Utara dan Timur Laut, melalui strategi ekspansi bertahap (diskon pengiriman, kerja sama logistik lokal, atau kampanye digital lokal).
-* **Analisis rata-rata nilai transaksi per wilayah** untuk memahami perilaku belanja dan potensi upselling di tiap state.
-* **Tingkatkan efisiensi rantai pasok** di wilayah dengan logistik sulit agar biaya pengiriman lebih kompetitif dan dapat menarik lebih banyak pelanggan baru.
-
-Dengan strategi ganda—**optimasi di wilayah utama dan ekspansi di pasar potensial**—platform dapat memperluas pangsa pasar sekaligus meningkatkan profitabilitas nasional secara berkelanjutan.
-
----
-
-
 ## 8️⃣ Dashboard / Visualization
 
 ### Tampilan Dashboard
 
-![Dashboard Screenshot](images\dashboard-viz.png)
+![images\dashboard-viz.png](images\dashboard-viz.png)
 
 ### Fungsi Tab dan Filter
 
