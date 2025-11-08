@@ -502,7 +502,7 @@ Dari scatter plot terlihat bahwa pelanggan High Value memang berbeda: mereka bel
 
 ### Tampilan Dashboard
 
-![images\dashboard-viz.png](images\dashboard-viz.png)
+<img src="images\dashboard-viz.png">
 
 ### Fungsi Tab dan Filter
 
