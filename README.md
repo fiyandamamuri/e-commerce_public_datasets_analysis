@@ -378,132 +378,171 @@ Analisis RFM (Recency, Frequency, Monetary) dengan pendekatan quantile untuk men
 #### Pertanyaan 1: Bagaimana distribusi pelanggan per kota selama periode 2016–2018, dan apakah terdapat perubahan signifikan di 5 kota teratas dibandingkan kota lainnya?
 
 #### **Insight:**
-Distribusi pelanggan e-commerce selama periode 2016–2018 menunjukkan konsentrasi geografis yang sangat tinggi di kota-kota besar Brasil. São Paulo mendominasi dengan 18.267 pelanggan (hampir 20% dari total), diikuti Rio de Janeiro dengan 8.022 pelanggan—menciptakan gap signifikan dibandingkan kota-kota lainnya. Dari perspektif negara bagian, SP (São Paulo state) mencakup lebih dari 52% total pelanggan dengan 48.797 pelanggan, mengonfirmasi dominasi wilayah Tenggara sebagai pusat aktivitas e-commerce. Lima kota teratas (São Paulo, Rio de Janeiro, Belo Horizonte, Brasília, dan Curitiba) tetap konsisten selama periode analisis tanpa perubahan signifikan dalam ranking, menunjukkan stabilitas pola konsumsi geografis yang kuat.
+- Distribusi pelanggan sangat tidak merata — terkonsentrasi kuat di wilayah perkotaan besar.
+- Kota São Paulo mendominasi dengan 18 ribu+ pelanggan, jauh di atas kota lain.
+- Top 3 kota (São Paulo, Rio de Janeiro, Belo Horizonte) menyumbang >30% total pelanggan.
+- Sebagian besar pelanggan berasal dari wilayah Selatan & Tenggara (SP, RJ, MG, RS, PR, SC).
+- Wilayah Utara & Timur Laut masih memiliki penetrasi pelanggan sangat rendah.
 
 #### **Rekomendasi Bisnis:**
-Kesenjangan besar antara kota-kota tier-1 dan tier-2 mengindikasikan perlunya strategi penetrasi pasar yang disesuaikan: mempertahankan dominasi di kota besar melalui program loyalitas dan peningkatan customer experience, sambil mengeksplorasi peluang pertumbuhan di kota-kota sekunder yang masih underserved melalui kampanye marketing lokal dan partnership dengan influencer regional. Konsentrasi pelanggan yang tinggi di beberapa kota juga memberikan peluang untuk optimalisasi logistik—mengembangkan distribution center atau warehouse di hub utama (SP, RJ, MG) untuk mengurangi biaya pengiriman dan waktu delivery, serta mempertimbangkan model fulfillment yang lebih fleksibel untuk menjangkau wilayah geografis yang lebih luas dengan efisien.
+- Fokuskan strategi retensi & personalisasi promosi di kota besar untuk memperkuat loyalitas pelanggan utama.
+- Jalankan ekspansi pasar & optimasi logistik di wilayah utara (seperti Roraima, Amapá, Acre) untuk menjangkau area dengan potensi pertumbuhan baru.
+- Gunakan analisis demografis & segmentasi geografis untuk menyesuaikan kampanye marketing dan penawaran produk sesuai karakteristik regional.
 
 ---
 
 #### Pertanyaan 2: Bagaimana tren penggunaan metode pembayaran pelanggan dari tahun 2016–2018, dan metode mana yang memberikan kontribusi terbesar terhadap total nilai transaksi?
 
 #### **Insight:**
-Selama periode 2016–2018, metode pembayaran kartu kredit mendominasi secara absolut dengan proporsi 73,8% dari total transaksi dan rata-rata nilai transaksi tertinggi sebesar R$179, mengonfirmasi preferensi pelanggan terhadap kemudahan, fleksibilitas, dan keamanan pembayaran digital. Boleto (metode transfer bank lokal Brasil) menempati posisi kedua dengan 19,5% proporsi dan rata-rata nilai transaksi R$177—hampir setara dengan kartu kredit—menunjukkan bahwa segmen pelanggan tertentu masih memilih metode pembayaran tradisional, kemungkinan karena tidak memiliki akses ke kartu kredit atau lebih percaya pada sistem pembayaran lokal. Voucher dan debit card memiliki kontribusi minimal (5,3% dan 1,4%), dengan voucher mencatat nilai transaksi terendah (R$64), mengindikasikan penggunaan terbatas pada pembelian bernilai kecil atau dalam konteks program promosi dan diskon.
+- Kartu kredit mendominasi dengan kontribusi ~74% dari total transaksi dan nilai transaksi rata-rata tertinggi (R$179).
+- Boleto (transfer bank lokal) menempati posisi kedua (~19%) dengan nilai transaksi hampir setara dengan kartu kredit.
+- Voucher (5%) digunakan untuk pembelian bernilai kecil (R$64) — kemungkinan terkait promo atau diskon.
+- Debit card (1,4%) memiliki pangsa pasar paling rendah dan tidak signifikan terhadap total transaksi.
 
 #### **Rekomendasi Bisnis:**
-Mengingat dominasi kartu kredit, platform harus memastikan integrasi payment gateway yang optimal dengan proses checkout yang seamless, serta mempertimbangkan kerjasama dengan penyedia kartu kredit untuk program cashback atau cicilan 0% guna meningkatkan conversion rate dan average order value. Untuk boleto yang masih signifikan (hampir 20% transaksi), penting untuk mempertahankan metode ini sebagai opsi pembayaran mengingat penetrasi kartu kredit yang belum merata di seluruh Brasil, sambil mengoptimalkan proses verifikasi pembayaran boleto untuk mengurangi fraud dan mempercepat fulfillment. Voucher dapat dimanfaatkan lebih strategis sebagai tool untuk akuisisi pelanggan baru atau reaktivasi pelanggan dorman melalui targeted campaign, sementara rendahnya penggunaan debit card (1,4%) mengindikasikan perlunya evaluasi apakah metode ini perlu dipertahankan atau digantikan dengan alternatif pembayaran digital lain yang lebih populer seperti digital wallet atau BNPL (Buy Now Pay Later) untuk mengakomodasi evolusi preferensi pembayaran pelanggan.
+- Optimalkan pengalaman pembayaran digital dengan memastikan integrasi payment gateway yang lancar untuk kartu kredit.
+- Pertimbangkan kerja sama dengan bank/kartu kredit untuk program cashback atau cicilan 0% guna meningkatkan conversion rate dan average order value (AOV).
+- Tetap sediakan opsi boleto untuk menjangkau pelanggan yang belum memiliki akses kartu kredit, sambil mempercepat proses verifikasinya.
+- Gunakan voucher sebagai strategi promosi atau reaktivasi pelanggan dorman, dan evaluasi efektivitas debit card dibanding alternatif baru seperti e-wallet atau BNPL.
 
 ---
 
 #### Pertanyaan 3: Bagaimana tren jumlah pesanan per bulan selama periode 2016–2018, dan apakah terdapat pola musiman atau perubahan signifikan yang dapat menjadi dasar strategi promosi dan pengelolaan inventaris?
 
 #### **Insight:**
-Tren jumlah pesanan selama periode 2016–2018 menunjukkan pertumbuhan yang konsisten dan berkelanjutan, dengan lonjakan signifikan mulai awal 2017 yang mengindikasikan ekspansi bisnis atau peningkatan adopsi platform e-commerce. Pola musiman yang paling mencolok terjadi pada November 2017 dengan puncak 7.284 pesanan—hampir 50% lebih tinggi dari bulan sebelumnya—yang kemungkinan besar dipicu oleh event Black Friday dan promosi akhir tahun. Setelah lonjakan November, volume pesanan tetap stabil tinggi di rentang 6.000-7.000 pesanan per bulan sepanjang 2018, menunjukkan bahwa pertumbuhan bukan hanya bersifat seasonal spike tetapi mencerminkan peningkatan organic demand yang sustainable. Tidak terlihat pola musiman kuat di bulan-bulan lain selain periode Oktober-November, mengindikasikan bahwa mayoritas transaksi didorong oleh kebutuhan konsumen sehari-hari daripada seasonal events, dengan data 2016 dan akhir 2018 yang tidak lengkap sehingga analisis tren lebih valid untuk periode 2017-2018.
+- Jumlah pesanan meningkat tajam dari tahun 2016 hingga puncaknya di akhir 2017 dan awal 2018.
+- Terjadi lonjakan signifikan pada November 2017 (7.284 pesanan) — kemungkinan besar dipicu oleh event Black Friday dan promosi akhir tahun.
+- Aktivitas penjualan tetap tinggi hingga Desember 2017 dan Januari–Maret 2018, menunjukkan efek berkelanjutan dari momentum promosi.
+- Setelah pertengahan 2018, tren mulai stabil dengan sedikit penurunan di bulan Juni–Agustus, menandakan periode penjualan normal (off-peak).
+- Secara umum, pola menunjukkan musim belanja meningkat di Q4 setiap tahun, cocok untuk strategi promosi tahunan.
 
 #### **Rekomendasi Bisnis:**
-Platform harus memaksimalkan momentum periode Oktober-November dengan merencanakan kampanye promosi agresif (flash sale, bundle deals, voucher eksklusif) minimal 2-3 minggu sebelum Black Friday untuk membangun awareness dan anticipation pelanggan. Manajemen inventaris perlu diperkuat dengan forecasting yang lebih akurat untuk periode peak season—meningkatkan stok produk best-seller 30-40% lebih tinggi dari bulan biasa dan berkoordinasi erat dengan supplier untuk memastikan tidak terjadi stockout yang dapat mengecewakan pelanggan. Mengingat volume pesanan yang stabil tinggi sepanjang 2018, investasi dalam infrastruktur logistik dan warehouse capacity menjadi krusial untuk menghindari bottleneck operasional, termasuk penambahan tenaga kerja temporer selama peak season dan optimalisasi sistem order fulfillment. Selain itu, perusahaan dapat mengeksplorasi strategi untuk menciptakan "mini peak seasons" di bulan-bulan lain (seperti mid-year sale atau back-to-school campaign) guna mendistribusikan demand lebih merata sepanjang tahun dan mengurangi tekanan operasional yang terkonsentrasi di akhir tahun, sekaligus meningkatkan total annual revenue.
+- Gunakan data tren musiman ini untuk merencanakan stok dan kampanye promosi besar di Q4 (Oktober–Desember).
+- Tingkatkan kapasitas logistik dan persediaan menjelang Black Friday untuk menghindari keterlambatan pengiriman.
+- Manfaatkan periode off-peak (Mei–Agustus) untuk campaign reaktivasi pelanggan atau bundling promo guna menjaga stabilitas penjualan.
+- Lakukan forecasting permintaan tahunan berbasis pola historis agar strategi inventory dan marketing lebih presisi.
 
 ---
 
 #### Pertanyaan 4: Kategori produk apa yang paling populer selama periode 2016–2018?
 
 #### **Insight:**
-Selama periode 2016–2018, kategori bed_bath_table mendominasi sebagai produk terpopuler dengan 11.847 unit terjual—mengungguli kategori kedua (health_beauty dengan 9.944 unit) sebesar 19%, mengonfirmasi bahwa produk rumah tangga dan dekorasi merupakan kebutuhan primer pelanggan e-commerce. Tiga kategori teratas (bed_bath_table, health_beauty, sports_leisure) secara kolektif mencerminkan tren konsumen modern yang fokus pada improvement kualitas hidup di rumah, perawatan diri, dan gaya hidup aktif. Dominasi kategori home & living (bed_bath_table, furniture_decor, housewares) yang menguasai 3 dari 10 posisi teratas dengan total lebih dari 27.000 unit menunjukkan bahwa platform ini telah berhasil memposisikan diri sebagai destination utama untuk kebutuhan rumah tangga. Kategori teknologi seperti computers_accessories (8.105 unit) dan telephony (4.692 unit) menunjukkan permintaan yang stabil namun tidak sebesar kategori home & lifestyle, mengindikasikan bahwa pelanggan cenderung membeli produk tech di channel lain atau memiliki frekuensi pembelian yang lebih rendah.
+- Kategori bed_bath_table menjadi yang paling populer dengan 11.847 transaksi, menandakan tingginya permintaan untuk kebutuhan rumah tangga.
+- Health_beauty (9.944) dan sports_leisure (8.942) juga menempati posisi atas, mencerminkan tren konsumen yang semakin fokus pada gaya hidup sehat dan perawatan diri
+- Furniture_decor dan computers_accessories masuk 5 besar, menunjukkan keseimbangan antara kebutuhan fungsional (perabot rumah) dan digital (teknologi).
+- Pola ini menggambarkan bahwa platform e-commerce memiliki basis pelanggan luas dengan dominasi produk-produk consumer goods dan lifestyle.
 
 #### **Rekomendasi Bisnis:**
-Platform harus memperkuat posisi dominan di kategori bed_bath_table dengan memperluas product assortment, menambah exclusive brands atau private label untuk meningkatkan margin, dan mengoptimalkan product discovery melalui personalized recommendation engine yang lebih canggih. Mengingat performa kuat kategori health_beauty dan sports_leisure, investasi dalam content marketing (tutorial makeup, workout guides, product reviews) dan influencer collaboration dapat meningkatkan engagement dan conversion rate di kedua kategori ini. Strategi cross-selling dan bundling antar kategori home & living (misalnya "complete your bedroom set" atau "bathroom essentials bundle") dapat meningkatkan average order value dan mendorong pelanggan untuk berbelanja multiple items sekaligus. Untuk kategori dengan performa lebih rendah seperti telephony dan auto, perlu dilakukan evaluasi apakah ini karena kurang kompetitif dalam pricing, limited selection, atau memang bukan core market—jika memang kurang profitable, resources bisa dialokasikan ke kategori dengan higher growth potential, atau sebaliknya melakukan strategic push dengan targeted promotion untuk meningkatkan market share di kategori tersebut.
+- Fokuskan strategi pemasaran dan stok pada kategori home living dan personal care, terutama menjelang musim promosi besar.
+- Buat cross-selling campaign antara kategori saling terkait, seperti bed_bath_table dengan furniture_decor, atau health_beauty dengan sports_leisure.
+- Perkuat manajemen inventaris dan suplai untuk produk dengan volume tinggi agar menghindari kekosongan stok saat puncak permintaan.
+- Untuk kategori dengan transaksi sedang seperti telephony dan auto, pertimbangkan promosi bundling atau diskon targeted untuk meningkatkan penetrasi pasar.
 
 ---
 
 #### Pertanyaan 5: Berapa rata-rata waktu pengiriman dari pembelian hingga diterima pelanggan selama periode 2016–2018, dan apakah terdapat perbedaan signifikan antar kota atau wilayah?
 
 #### **Insight:**
-Selama periode 2016–2018, rata-rata waktu pengiriman nasional adalah 12,0 hari dengan distribusi yang terkonsentrasi di rentang 10-15 hari untuk mayoritas pesanan, menunjukkan konsistensi operasional logistik yang cukup baik. Namun, terdapat disparitas geografis yang signifikan: São Paulo mencatat waktu pengiriman tercepat (8,3 hari)—hampir 45% lebih cepat dari rata-rata nasional—mengonfirmasi keunggulan infrastruktur logistik dan proximity ke distribution center di pusat ekonomi utama. Sebaliknya, negara bagian seperti Espírito Santo dan Mato Grosso do Sul mengalami waktu pengiriman terlama (15,1 hari), hampir dua kali lipat dari SP, yang kemungkinan disebabkan oleh jarak geografis yang jauh, keterbatasan infrastruktur transportasi, atau kurangnya fulfillment center di wilayah tersebut. Menariknya, beberapa kota kecil seperti Iomere, Contenda, dan Siriji mencatat waktu pengiriman sangat cepat (2-3 hari), kemungkinan karena proximity ke hub logistik tertentu atau volume pesanan yang rendah sehingga mendapat prioritas processing. Adanya outlier dengan waktu pengiriman ekstrem (>200 hari) mengindikasikan masalah operasional seperti lost packages, alamat tidak valid, atau kendala logistik yang perlu investigasi lebih lanjut.
+- Rata-rata waktu pengiriman keseluruhan adalah ±12 hari sejak pembelian hingga pesanan diterima pelanggan.
+- Pengiriman tercepat terjadi di kota-kota kecil seperti Iomere (2 hari) dan Contenda (3 hari), kemungkinan karena kedekatan geografis dengan pusat distribusi.
+- Berdasarkan wilayah, negara bagian São Paulo (SP) memiliki waktu pengiriman tercepat (8,26 hari) dibandingkan wilayah lain seperti Rio de Janeiro (14,72 hari) dan Espírito Santo (15,07 hari).
+- Hal ini menunjukkan adanya kesenjangan efisiensi logistik antar wilayah, dengan wilayah Tenggara (terutama SP) lebih unggul dalam infrastruktur distribusi.
 
 #### **Rekomendasi Bisnis:**
-Platform harus memprioritaskan pembangunan atau partnership dengan regional fulfillment center di negara bagian dengan waktu pengiriman lambat (ES, MS, GO, RJ) untuk mengurangi last-mile delivery time dan meningkatkan customer satisfaction, dengan target mendekatkan rata-rata waktu pengiriman ke level SP (8-9 hari). Implementasi dynamic shipping rate berdasarkan lokasi geografis dapat membantu manage customer expectation—pelanggan di wilayah remote harus diberikan informasi transparan tentang estimasi pengiriman yang realistis saat checkout untuk mengurangi disappointment dan negative reviews. Investasi dalam teknologi tracking real-time dan proactive communication (SMS/email notification untuk setiap milestone pengiriman) akan meningkatkan trust dan mengurangi customer anxiety, terutama untuk wilayah dengan waktu pengiriman lebih lama. Untuk menangani outlier dengan delay ekstrem, perlu dibuat SOP ketat untuk escalation process—pesanan yang melewati threshold tertentu (misalnya 30 hari) harus otomatis di-flag untuk investigasi dan customer compensation (refund/voucher). Kerjasama strategis dengan multiple logistics provider (diversifikasi dari single courier) dapat memberikan fleksibilitas untuk memilih partner terbaik berdasarkan destination zone, meningkatkan reliability dan mengurangi dependency risk, sekaligus memberikan competitive advantage dalam delivery speed yang merupakan salah satu faktor krusial dalam e-commerce customer retention.
+- Perkuat kemitraan logistik di luar SP, terutama di wilayah timur dan selatan, untuk menekan waktu pengiriman di atas rata-rata.
+- Evaluasi lokasi gudang dan rute distribusi agar lebih dekat dengan area konsentrasi pelanggan, seperti RJ dan MG.
+- Terapkan analisis SLA (Service Level Agreement) untuk memonitor performa pengiriman per wilayah dan mitra logistik.
+- Komunikasikan estimasi pengiriman yang realistis kepada pelanggan untuk meningkatkan kepuasan dan kepercayaan terhadap platform.
 
 ---
 
 #### Pertanyaan 6: Bagaimana distribusi skor ulasan pelanggan, dan apakah terdapat hubungan antara review_score dengan waktu pengiriman atau nilai transaksi?
 
 #### **Insight:**
-Distribusi skor ulasan pelanggan menunjukkan sentiment yang sangat positif dengan dominasi rating tinggi: 75% ulasan berada di skor 4-5 bintang (87.324 dari 115.608 ulasan), dengan skor 5 bintang sendiri mencakup 56,5% dari total ulasan, mengindikasikan tingkat kepuasan pelanggan yang tinggi secara keseluruhan. Ulasan negatif (skor 1-2) hanya mencakup 16% dari total, menunjukkan bahwa mayoritas transaksi berjalan dengan baik. Analisis korelasi mengungkapkan hubungan negatif yang moderat antara waktu pengiriman dan review score (r = -0.30), mengonfirmasi bahwa delivery speed memiliki dampak signifikan terhadap kepuasan pelanggan—setiap penundaan pengiriman berpotensi menurunkan rating yang diberikan. Boxplot menunjukkan bahwa meskipun median delivery time relatif konsisten di semua kategori skor (10-15 hari), ulasan dengan skor 1-2 memiliki jauh lebih banyak outlier dengan waktu pengiriman ekstrem (>30 hari), menunjukkan bahwa keterlambatan pengiriman yang parah menjadi trigger utama untuk negative reviews. Tidak terlihat korelasi kuat antara nilai transaksi dan review score, mengindikasikan bahwa kepuasan pelanggan lebih didorong oleh service quality (delivery speed, product quality, customer service) daripada seberapa besar nilai pembelian mereka.
+- Skor ulasan pelanggan didominasi oleh rating 5 (56%) dan rating 4 (19%), menunjukkan tingkat kepuasan pelanggan yang tinggi secara umum.
+- Namun, rating 1 dan 2 masih menyumbang sekitar 16% dari total ulasan, menandakan adanya pengalaman negatif yang perlu dievaluasi.
+- Ditemukan korelasi negatif moderat antara review_score dan delivery_time (r = -0.30) — semakin lama pengiriman, semakin rendah skor ulasan yang diberikan pelanggan.
+- Tidak ditemukan korelasi kuat antara skor ulasan dan nilai transaksi, mengindikasikan kepuasan pelanggan lebih dipengaruhi oleh kecepatan dan ketepatan pengiriman dibanding nilai pembelian.
 
 #### **Rekomendasi Bisnis:**
-Platform harus menjadikan delivery speed optimization sebagai top priority untuk mempertahankan dan meningkatkan customer satisfaction score, dengan fokus khusus pada eliminasi extreme delays (>30 hari) yang menjadi penyebab utama 1-2 star reviews—implementasi alert system otomatis untuk pesanan yang berisiko terlambat dan proactive customer communication dapat mengurangi frustration dan mencegah negative reviews. Mengingat 75% pelanggan sudah satisfied (skor 4-5), strategi untuk move them dari "satisfied" ke "delighted" dapat dilakukan melalui surprise & delight tactics seperti faster-than-promised delivery, personalized thank you notes, atau small freebies untuk repeat customers—ini dapat meningkatkan word-of-mouth marketing dan brand loyalty. Untuk segmen dengan ulasan negatif (16%), implementasi systematic recovery process sangat penting: segera identify root cause (delay, wrong item, damaged goods), offer immediate resolution (refund, replacement, compensation voucher), dan follow-up untuk ensure satisfaction—converting detractors menjadi promoters melalui exceptional service recovery dapat mengubah negative experience menjadi positive brand story. Platform juga harus leverage high rating (56,5% five-star reviews) dalam marketing materials dan product pages untuk social proof, sambil secara aktif encourage satisfied customers untuk leave reviews melalui post-purchase email campaign dengan incentive (discount voucher untuk next purchase), karena positive reviews terbukti meningkatkan conversion rate hingga 270% menurut research e-commerce industry, yang pada akhirnya akan meningkatkan trust dan sales velocity.
+- Fokus pada optimalisasi waktu pengiriman sebagai faktor utama peningkatan kepuasan pelanggan.
+- Gunakan SLA tracking dan notifikasi real-time untuk mengurangi ketidakpastian pelanggan selama pengiriman.
+- Evaluasi ulang mitra logistik dengan performa di bawah standar, terutama di wilayah dengan waktu pengiriman tinggi.
+- Lakukan analisis teks review lebih lanjut untuk mengidentifikasi penyebab utama keluhan, lalu tindaklanjuti dengan customer experience improvement plan.
 
 ---
 
 #### Pertanyaan 7: Siapa penjual dengan total penjualan tertinggi selama periode 2016–2018, dan bagaimana rata-rata waktu pengiriman mereka dibandingkan penjual lainnya?
 
 #### **Insight:**
-Selama periode 2016–2018, penjual dengan Seller ID 7c67e1448b00f6e969d365cea6b010ab adalah penjual terbesar dengan total penjualan R$509.474—jauh lebih tinggi 64% dibanding penjual kedua (R$310.579). Namun ada masalah besar: penjual ini memiliki waktu pengiriman paling lambat (22 hari), hampir 2 kali lebih lama dari rata-rata platform (12 hari). Di sisi lain, beberapa penjual lain yang lebih cepat mengirim barang (10-11 hari) justru penjualannya lebih rendah. Ini menunjukkan bahwa penjualan tinggi tidak selalu berarti pelayanan bagus, dan kecepatan pengiriman belum tentu membuat penjualan meningkat—mungkin ada faktor lain seperti harga murah atau produk unik yang lebih berpengaruh.
+- Seller ID `7c67e1448b00f6e969d365cea6b010ab` menempati posisi penjual dengan total penjualan tertinggi sebesar R$509.474, namun memiliki rata-rata waktu pengiriman paling lama (22 hari) di antara 10 besar penjual.
+- Sebaliknya, beberapa penjual dengan penjualan tinggi seperti `da8622b14eb17ae2831f4ac5b9dab84a` dan `955fee9216a65b617aa5c0531780ce60` menunjukkan kinerja logistik jauh lebih cepat (≈10–11 hari) sambil tetap mencatat nilai penjualan besar (>R$230.000).
+- Pola ini menunjukkan bahwa tinggi rendahnya penjualan tidak selalu sejalan dengan efisiensi pengiriman — kemungkinan karena perbedaan jenis produk, lokasi gudang, atau volume pesanan besar yang memperpanjang waktu pemrosesan.
+- Secara keseluruhan, top seller berperan besar dalam pendapatan platform dan menjadi kunci untuk menjaga kualitas pengalaman pelanggan.
 
 #### **Rekomendasi Bisnis:**
-Platform harus segera berbicara dengan penjual terbesar ini untuk memperbaiki masalah pengiriman yang lambat. Caranya bisa dengan membantu mereka mendapat akses ke jasa pengiriman yang lebih baik, atau bahkan membantu biaya untuk menyewa gudang yang lebih dekat dengan pelanggan. Ini penting karena jika pelanggan terus complain tentang pengiriman lambat, penjual ini bisa kehilangan reputasi dan akhirnya pindah ke platform lain—yang berarti platform kehilangan sumber pendapatan terbesar.
-
-Platform juga perlu membuat sistem penilaian penjual yang tidak hanya melihat berapa banyak mereka jual, tapi juga seberapa cepat pengiriman dan seberapa puas pelanggan. Penjual yang bagus di semua aspek bisa diberi hadiah seperti ditampilkan di halaman utama atau dapat potongan biaya admin.
-
-Selain itu, platform harus membantu penjual-penjual menengah yang sudah cepat dalam pengiriman tapi penjualannya belum maksimal. Berikan mereka bantuan seperti promosi gratis, tools untuk analisa data penjualan, atau pelatihan marketing. Dengan begitu, platform tidak terlalu bergantung pada satu penjual besar saja—lebih aman kalau ada banyak penjual yang sama-sama sukses.
-
-Terakhir, cari tahu kenapa penjual yang cepat kirim barang belum laku banyak: apakah produknya kurang lengkap? Foto produk kurang menarik? Atau mungkin tidak muncul di hasil pencarian? Setelah tahu masalahnya, bantu mereka perbaiki supaya bisa tumbuh lebih besar.
+- Lakukan benchmark waktu pengiriman antar top seller untuk mengidentifikasi hambatan operasional pada penjual dengan durasi pengiriman tinggi.
+- Berikan insentif logistik (prioritas pengiriman, dukungan fulfillment) bagi penjual berpenjualan tinggi namun lambat dalam pengiriman.
+- Gunakan seller performance dashboard yang menampilkan delivery time vs sales volume sebagai indikator utama untuk pemantauan rutin.
+- Evaluasi apakah integrasi gudang regional atau dropship system dapat membantu menurunkan waktu pengiriman tanpa mengorbankan volume penjualan.
 
 ---
 
 #### Pertanyaan 8: Berapa proporsi pelanggan baru dibanding pelanggan yang melakukan pembelian ulang selama periode 2016–2018?
 
 #### **Insight:**
-
-Selama periode 2016–2018, sekitar **97% transaksi berasal dari pelanggan baru**, sementara **hanya 3% berasal dari pelanggan repeat**. Ini berarti sebagian besar pelanggan hanya melakukan pembelian satu kali dan tidak kembali berbelanja. Dari total 93.395 pelanggan, sebanyak 90.588 hanya melakukan satu transaksi, sementara hanya 2.807 pelanggan melakukan pembelian lebih dari sekali. Angka ini menunjukkan bahwa **tingkat retensi pelanggan masih sangat rendah**, meskipun strategi akuisisi pelanggan baru berjalan baik.
+- Pelanggan baru mendominasi transaksi dengan proporsi ≈97%, sedangkan pelanggan repeat hanya menyumbang sekitar 3% dari total pembelian selama 2016–2018.
+- Angka ini menunjukkan bahwa mayoritas pendapatan masih berasal dari akuisisi pelanggan baru, bukan dari retensi pelanggan lama.
+- Rendahnya repeat purchase dapat menandakan kurangnya program loyalitas, personalisasi rekomendasi produk, atau strategi retensi yang efektif.
 
 #### **Rekomendasi Bisnis:**
-
-Fokus bisnis perlu bergeser dari sekadar akuisisi ke **strategi retensi pelanggan**. Platform dapat:
-
-* Membangun **program loyalitas** atau **reward system** bagi pelanggan yang melakukan pembelian berulang.
-* Mengirimkan **penawaran personal** atau **diskon pembelian berikutnya** untuk mendorong repeat order.
-* Melakukan evaluasi terhadap **pengalaman pelanggan** (kecepatan pengiriman, kualitas produk, layanan purna jual) agar pelanggan lebih puas dan mau kembali.
-* Menganalisis **alasan churn** pelanggan, misalnya melalui survei atau review, guna menemukan akar masalah dan memperbaikinya.
-
-Dengan meningkatkan repeat purchase rate bahkan hanya 2–3%, bisnis dapat memperbesar **Customer Lifetime Value (CLV)** dan mencapai pertumbuhan yang lebih berkelanjutan tanpa bergantung sepenuhnya pada pelanggan baru.
+- Fokus pada retensi pelanggan — bangun program loyalty points, voucher re-purchase, atau diskon pembelian berikutnya untuk mendorong pelanggan melakukan pembelian ulang.
+- Implementasikan email marketing berbasis histori pembelian dan rekomendasi produk personal agar pelanggan terdorong kembali bertransaksi.
+- Lakukan analisis cohort untuk memahami kapan pelanggan cenderung berhenti membeli, sehingga dapat diintervensi lebih awal dengan promosi atau kampanye retensi.
+- Jaga keseimbangan strategi antara akuisisi pelanggan baru dan peningkatan Customer Lifetime Value (CLV) dari pelanggan yang sudah ada.
 
 ---
 
 #### Pertanyaan 9: Bagaimana performa penjualan dan rata-rata nilai transaksi per negara bagian (state), dan wilayah mana yang berkontribusi paling besar terhadap total pendapatan?
 
 #### **Insight:**
-
-Selama periode 2016–2018, **São Paulo (SP)** menjadi kontributor utama pendapatan dengan total penjualan mencapai **R$ 7,5 juta**, jauh melampaui **Rio de Janeiro (RJ)** sebesar **R$ 2,7 juta** dan **Minas Gerais (MG)** sebesar **R$ 2,3 juta**. Ketiga negara bagian ini menyumbang lebih dari **75% total pendapatan**, menegaskan dominasi wilayah **Tenggara Brasil** sebagai pusat aktivitas e-commerce.
-Negara bagian di wilayah **Selatan** seperti **Rio Grande do Sul (RS)** dan **Paraná (PR)** juga berkontribusi cukup besar (di atas R$ 1 juta), sementara wilayah **Utara dan Timur Laut** seperti **Roraima (RR)**, **Amapá (AP)**, dan **Acre (AC)** memiliki kontribusi yang sangat kecil (< R$ 30 ribu).
-Distribusi ini menunjukkan adanya **kesenjangan geografis** dalam performa penjualan, yang kemungkinan disebabkan oleh perbedaan infrastruktur logistik, tingkat urbanisasi, dan daya beli masyarakat.
+- Negara bagian São Paulo (SP) menjadi kontributor utama pendapatan dengan total R$ 7,5 juta, jauh melampaui provinsi lainnya.
+- Diikuti oleh Rio de Janeiro (R$ 2,7 juta) dan Minas Gerais (R$ 2,3 juta) — tiga wilayah ini secara kolektif menyumbang lebih dari 50% total pendapatan nasional.
+- Secara geografis, wilayah tenggara Brasil menjadi pusat aktivitas ekonomi e-commerce terbesar, mencerminkan konsentrasi populasi urban dan daya beli yang tinggi.
+- Sementara itu, wilayah utara dan timur laut (seperti Roraima, Amapá, Acre) memiliki kontribusi yang sangat kecil (<1%), menunjukkan potensi pasar yang belum tergarap secara optimal.
 
 #### **Rekomendasi Bisnis:**
+- Fokus retensi & upselling di wilayah performa tinggi seperti SP, RJ, dan MG untuk memaksimalkan pendapatan dari pelanggan loyal.
+- Perluas penetrasi pasar ke wilayah berkontribusi rendah (utara & timur laut) melalui:
+   - Ekspansi logistik (mitra pengiriman lokal & warehouse regional)
+   - Promosi spesifik wilayah & kampanye edukasi e-commerce
+   - Penawaran gratis ongkir atau cicilan ringan untuk mengatasi hambatan pembelian
+- Gunakan insight ini untuk alokasi anggaran iklan dan stok produk secara regional, agar supply dan permintaan lebih seimbang serta biaya operasional lebih efisien.
 
-* **Fokuskan strategi pemasaran dan promosi** di wilayah berkontribusi tinggi (SP, RJ, MG) untuk memaksimalkan pendapatan jangka pendek dan mempertahankan dominasi pasar.
-* **Perluas penetrasi ke wilayah dengan kontribusi rendah** namun berpotensi tumbuh, seperti wilayah Utara dan Timur Laut, melalui strategi ekspansi bertahap (diskon pengiriman, kerja sama logistik lokal, atau kampanye digital lokal).
-* **Analisis rata-rata nilai transaksi per wilayah** untuk memahami perilaku belanja dan potensi upselling di tiap state.
-* **Tingkatkan efisiensi rantai pasok** di wilayah dengan logistik sulit agar biaya pengiriman lebih kompetitif dan dapat menarik lebih banyak pelanggan baru.
-
-Dengan strategi ganda—**optimasi di wilayah utama dan ekspansi di pasar potensial**—platform dapat memperluas pangsa pasar sekaligus meningkatkan profitabilitas nasional secara berkelanjutan.
 
 ---
 
 ### **Segmentasi Pelanggan (RFM)**
 
 #### **Insight:**
-Hasil analisis RFM selama periode 2016–2018 menunjukkan bahwa pelanggan terbagi menjadi tiga kelompok utama: **Medium Value (48,8%)**, **Low Value (42,6%)**, dan **High Value (8,6%)**. Mayoritas pelanggan (lebih dari 91%) masih berada di kategori Medium dan Low Value, artinya mereka jarang belanja atau nilai belanjaannya masih kecil. Hanya sekitar 8,6% pelanggan yang termasuk High Value—mereka yang sering belanja dan menghabiskan uang banyak—tapi kelompok kecil ini memberikan kontribusi pendapatan yang sangat besar karena nilai transaksi mereka bisa mencapai puluhan ribu Real. 
-
-Dari scatter plot terlihat bahwa pelanggan High Value memang berbeda: mereka belanja lebih sering (frequency tinggi) dan total pembeliannnya jauh lebih besar dibanding kelompok lain. Sementara pelanggan Low Value biasanya hanya belanja 1-2 kali dengan nilai kecil, lalu tidak kembali lagi. Heatmap RFM menunjukkan bahwa pelanggan dengan skor Recency dan Frequency tinggi (baru saja belanja dan sering belanja) adalah kelompok paling potensial karena mereka masih aktif dan loyal.
+- Mayoritas pelanggan (>90%) termasuk kategori Low & Medium Value, menunjukkan potensi besar untuk aktivasi ulang dan retensi.
+- Segmen High Value meskipun kecil (8.6%), berperan penting dalam profitabilitas jangka panjang dan layak menjadi target utama program loyalitas premium.
+- Pelanggan Low Value dapat diarahkan ke strategi edukasi atau promosi khusus untuk meningkatkan frekuensi pembelian.
 
 #### **Rekomendasi Bisnis:**
-**Untuk pelanggan High Value (8,6%):** Ini adalah pelanggan paling penting yang harus dijaga dengan sangat baik. Berikan mereka perlakuan istimewa seperti program VIP dengan benefit eksklusif (gratis ongkir selamanya, akses early sale, customer service prioritas), diskon khusus di hari ulang tahun, atau hadiah surprise untuk berterima kasih atas loyalitas mereka. Jangan sampai kehilangan mereka karena mereka adalah sumber pendapatan terbesar.
+- High Value Customers (Top 8.6%)
+   - Program Loyalty Membership / VIP Tier : Akses eksklusif, early sale access, cashback khusus.
+   - Personalized marketing: rekomendasi produk berdasarkan histori pembelian.
+   - Jaga retensi dengan thank-you campaign & feedback loop.
 
-**Untuk pelanggan Medium Value (48,8%):** Ini adalah kelompok terbesar yang punya potensi besar untuk naik level menjadi High Value. Dorong mereka untuk belanja lebih sering dengan program seperti: beli 3 kali dapat voucher gratis, cashback untuk pembelian rutin, atau rekomendasi produk personal berdasarkan belanjaan mereka sebelumnya. Kirim email atau notifikasi yang relevan dengan kebutuhan mereka supaya mereka ingat untuk belanja lagi.
+- Medium Value Customers (~49%)
+   - Program upselling dan cross-selling produk relevan.
+   - Dorong menjadi pelanggan aktif dengan voucher frekuensi pembelian (contoh: diskon pembelian ke-3).
+   - Kirim reminder berbasis waktu (“You haven’t shopped in a while!”).
 
-**Untuk pelanggan Low Value (42,6%):** Kelompok ini perlu "dibangunkan" kembali karena mereka sudah hampir tidak aktif. Strategi yang bisa dipakai: kirim diskon besar-besaran (misalnya 30-50% off), promo flash sale eksklusif, atau voucher yang harus dipakai dalam waktu terbatas untuk create urgency. Coba juga kirim email yang mengingatkan produk yang pernah mereka lihat tapi belum dibeli, atau tawarkan produk baru yang sesuai dengan minat mereka.
-
-**Strategi prioritas:** Fokuskan resource terbesar untuk menjaga High Value customers (karena kehilangan satu pelanggan ini sama dengan kehilangan ratusan pelanggan Low Value), alokasikan budget sedang untuk upgrade Medium Value customers (karena mereka jumlahnya banyak dan mudah di-convert), dan gunakan strategi low-cost untuk reaktivasi Low Value customers (seperti automated email marketing). Dengan cara ini, platform bisa maksimalkan return dari setiap rupiah yang dikeluarkan untuk program loyalitas.
+- Low Value Customers (~43%)
+   - Gunakan email reactivation atau promosi onboarding untuk menarik kembali.
+   - Analisis lebih lanjut untuk mengetahui apakah mereka baru atau churn.
 
 ---
 
